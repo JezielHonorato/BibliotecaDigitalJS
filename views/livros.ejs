@@ -1,0 +1,80 @@
+<%- include('header') %>
+
+<input type="number" class="Invisivel" value="1" id="valor_inicial">
+<input type="number" class="Invisivel" value="2" id="valor_final">
+
+  <div class="Conteudo">
+    <div class="Busca">
+      <div class="Campo">  
+        <label for="pesquisar">Pesquisar:</label>
+        <div class="CampoInput">
+          <label for="pesquisar" class="Simbolo Menor">search</label>
+          <input type="search" class="Pesquisar" id="pesquisar" name="pesquisar" autocomplete="off" onchange="PesquisarLivro()">
+        </div>
+      </div>
+
+      <div class="Campo">
+        <label for="categoria">Categoria:</label>
+        <div class="CampoInput">
+          <label class="Simbolo">expand_more</label>
+          <select class="Select" id="categoria" name="categoria" onchange="PesquisarLivro()">
+            <option></option>
+                <option value='1'></option>";
+          </select>
+        </div>
+      </div>
+
+      <div class="Campo">
+        <label for="nacionalidade">Pais:</label>
+        <div class="CampoInput">
+          <label for="nacionalidade" class="Simbolo">expand_more</label>
+          <select class="Select" id="nacionalidade" name="nacionalidade" onchange="PesquisarLivro()">
+            <option value='1'></option>";
+          </select>
+        </div>
+      </div>
+
+      <div class="Campo">
+          <div class="ValorRange">
+              <a>Periodo:</a> <a class="RangeValor" id="range_valor">
+                  <input type="number" onchange="MudarPeriodoI(), MudarPeriodo(), PesquisarLivro()" id="input_menor_valor" class="InputMenorValor"></input>
+                  <span class="RangeSepararValor">-</span>
+                  <input type="number" onchange="MudarPeriodoI(), MudarPeriodo(), PesquisarLivro()" id="input_maior_valor" class="InputMaiorValor"></input>
+              </a>
+          </div>
+          <div class="CampoInput CampoR">
+              <div class="Progresso" id="progresso"></div>
+              <span class="LinhaDupla">                    
+                  <input type="range" min="<?php echo $menor_valor ?>" max="<?php echo $maior_valor ?>" value="<?php echo $menor_valor ?>" id="range_menor" name="range_menor" class="Periodo" onchange="MudarPeriodo()" onclick="PesquisarLivro()">
+                  <input type="range" min="<?php echo $menor_valor ?>" max="<?php echo $maior_valor ?>" value="<?php echo $maior_valor ?>" id="range_maior" name="range_maior" class="Periodo" onchange="MudarPeriodo()" onclick="PesquisarLivro()">
+              </span>
+          </div>
+      </div>
+    </div>
+
+
+    <div class="Lista">
+      <div class="Livro" >
+        <div class="Indice"> <h1><span class="Simbolo"> download</span></h1></div>
+        <div class="Titulo"> <h1>Titulo</h1> <span onclick="OrdenarT()" id="ordenar_titulo" class="Simbolo Menor2">swap_vert</span></div>
+        <div class="Autor"> <h1>Autor</h1> <span onclick="OrdenarA()" id="ordenar_autor" class="Simbolo Menor2">swap_vert</span></div>
+        <div class="Data"> <h1>Data</h1> <span onclick="OrdenarD()" id="ordenar_data" class="Simbolo Menor2">swap_vert</span></div>
+        <div class="Editar"> <span class='Simbolo'>edit</span></div>
+      </div>
+      <% for (item of resultado) {%>
+        <div class='Livro'>
+          <a class='Indice' href='files/<%= item.titulo %>.pdf'.pdf' download='<%= item.titulo %>'><span class='Simbolo'>download</span></a>
+          <div class='Titulo' onclick="window.open('files/<%= item.titulo %>.pdf')"><a> <%= item.titulo %></a></div>
+          <div class='Autor' onclick="window.open('files/<%= item.titulo %>.pdf')"><a> <%= item.autor %></a></div>
+          <div class='Data' onclick="window.open('files/<%= item.titulo %>.pdf')"><a> <%= item.publicadodata %></a></div>
+          <div class='Editar'><a href='editar/id="item.idlivro"'> <span class='Simbolo'>edit</span></a></div>
+        </div>
+      <%}%> 
+
+    </div>
+  </div>
+
+  <%- include('footer') %>
+
+</body>
+</html>
