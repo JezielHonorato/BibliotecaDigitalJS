@@ -1,7 +1,64 @@
-<%- include('header') %>
+<!DOCTYPE html>
+<html lang='pt-br'>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-<input type="number" class="Invisivel" value="1" id="valor_inicial">
-<input type="number" class="Invisivel" value="2" id="valor_final">
+  <title>Biblioteca Digital em JS</title>
+  
+  <link rel='shortcut icon' href='images/logo.ico' />
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200' />
+  
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
+  <script src='javascripts/main.js' defer></script>
+  <script>
+    $(document).ready(function () {
+      function selectCategoria() {      
+        $.ajax({
+          url: "/jsonCategoria",
+          type: "GET",                  
+          dataType: "json",              
+          success: function (res) {      
+            $("#categoria").html("<option selected></option>");
+            $.each(res.resultado, function (key, value){
+              $("#categoria").append(               
+                "<option value=" + value.idcategoria + ">" + value.categoria + "</option>"
+              );
+            });
+          },
+        });
+      }
+
+      function selectPais() {      
+        $.ajax({
+          url: "/jsonPais",
+          type: "GET",                  
+          dataType: "json",              
+          success: function (res) {      
+            $("#pais").html("<option selected></option>");
+            $.each(res.resultado, function (key, value){
+              $("#pais").append(               
+                "<option value=" + value.idPais + ">" + value.pais + "</option>"
+              );
+            });
+          },
+        });
+      }
+
+      selectCategoria();
+      selectPais();
+    })
+  </script>
+</head>
+
+<body>
+
+  <%- include('header') %>
+
+  <input type="number" class="Invisivel" value="1" id="valor_inicial">
+  <input type="number" class="Invisivel" value="2" id="valor_final">
 
   <div class="Conteudo">
     <div class="Busca">
@@ -18,35 +75,36 @@
         <div class="CampoInput">
           <label class="Simbolo">expand_more</label>
           <select class="Select" id="categoria" name="categoria" onchange="PesquisarLivro()">
-            <option></option>
-                <option value='1'></option>";
+            <%# função selectCategoria %>
           </select>
         </div>
       </div>
 
       <div class="Campo">
-        <label for="nacionalidade">Pais:</label>
+        <label for="pais">Pais:</label>
         <div class="CampoInput">
-          <label for="nacionalidade" class="Simbolo">expand_more</label>
-          <select class="Select" id="nacionalidade" name="nacionalidade" onchange="PesquisarLivro()">
-            <option value='1'></option>";
+          <label for="pais" class="Simbolo">expand_more</label>
+          <select class="Select" id="pais" name="pais" onchange="PesquisarLivro()">
+            <%# função selectPais %>
           </select>
         </div>
       </div>
 
       <div class="Campo">
-          <div class="ValorRange">
+        <input type="number" hidden id="valor_final">
+        <input type="number" hidden id="valor_inicial">
+        <div class="ValorRange">
               <a>Periodo:</a> <a class="RangeValor" id="range_valor">
-                  <input type="number" onchange="MudarPeriodoI(), MudarPeriodo(), PesquisarLivro()" id="input_menor_valor" class="InputMenorValor"></input>
+                  <input type="number" id="input_menor_valor" class="InputMenorValor"></input>
                   <span class="RangeSepararValor">-</span>
-                  <input type="number" onchange="MudarPeriodoI(), MudarPeriodo(), PesquisarLivro()" id="input_maior_valor" class="InputMaiorValor"></input>
+                  <input type="number" id="input_maior_valor" class="InputMaiorValor"></input>
               </a>
           </div>
           <div class="CampoInput CampoR">
               <div class="Progresso" id="progresso"></div>
               <span class="LinhaDupla">                    
-                  <input type="range" min="<?php echo $menor_valor ?>" max="<?php echo $maior_valor ?>" value="<?php echo $menor_valor ?>" id="range_menor" name="range_menor" class="Periodo" onchange="MudarPeriodo()" onclick="PesquisarLivro()">
-                  <input type="range" min="<?php echo $menor_valor ?>" max="<?php echo $maior_valor ?>" value="<?php echo $maior_valor ?>" id="range_maior" name="range_maior" class="Periodo" onchange="MudarPeriodo()" onclick="PesquisarLivro()">
+                  <input type="range" min="0" max="2024" value="0" id="range_menor" name="range_menor" class="Periodo">
+                  <input type="range" min="0" max="2024" value="2024" id="range_maior" name="range_maior" class="Periodo">
               </span>
           </div>
       </div>
@@ -56,9 +114,9 @@
     <div class="Lista">
       <div class="Livro" >
         <div class="Indice"> <h1><span class="Simbolo"> download</span></h1></div>
-        <div class="Titulo"> <h1>Titulo</h1> <span onclick="OrdenarT()" id="ordenar_titulo" class="Simbolo Menor2">swap_vert</span></div>
-        <div class="Autor"> <h1>Autor</h1> <span onclick="OrdenarA()" id="ordenar_autor" class="Simbolo Menor2">swap_vert</span></div>
-        <div class="Data"> <h1>Data</h1> <span onclick="OrdenarD()" id="ordenar_data" class="Simbolo Menor2">swap_vert</span></div>
+        <div class="Titulo"> <h1>Titulo</h1> <span onclick="Ordenar('ordenar_titulo')" id="ordenar_titulo" class="Simbolo Menor2">swap_vert</span></div>
+        <div class="Autor"> <h1>Autor</h1> <span onclick="Ordenar('ordenar_autor')" id="ordenar_autor" class="Simbolo Menor2">swap_vert</span></div>
+        <div class="Data"> <h1>Data</h1> <span onclick="Ordenar('ordenar_data')" id="ordenar_data" class="Simbolo Menor2">swap_vert</span></div>
         <div class="Editar"> <span class='Simbolo'>edit</span></div>
       </div>
       <% for (item of resultado) {%>
