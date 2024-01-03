@@ -48,6 +48,8 @@ body{
 }
 input{
     text-indent: 1rem;
+    -moz-autocomplete: off;
+    -webkit-autocomplete: off;
 }
 a, label, option, ::placeholder, th, button, span, p, input{
     font-size: 1rem;

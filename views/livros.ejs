@@ -57,16 +57,13 @@
 
   <%- include('header') %>
 
-  <input type="number" class="Invisivel" value="1" id="valor_inicial">
-  <input type="number" class="Invisivel" value="2" id="valor_final">
-
   <div class="Conteudo">
     <div class="Busca">
       <div class="Campo">  
-        <label for="pesquisar">Pesquisar:</label>
+        <label for="titulo">pesquisar:</label>
         <div class="CampoInput">
-          <label for="pesquisar" class="Simbolo Menor">search</label>
-          <input type="search" class="Pesquisar" id="pesquisar" name="pesquisar" autocomplete="off" onchange="PesquisarLivro()">
+          <label for="titulo" class="Simbolo Menor">search</label>
+          <input type="search" class="titulo" id="titulo" name="titulo">
         </div>
       </div>
 
@@ -74,7 +71,7 @@
         <label for="categoria">Categoria:</label>
         <div class="CampoInput">
           <label class="Simbolo">expand_more</label>
-          <select class="Select" id="categoria" name="categoria" onchange="PesquisarLivro()">
+          <select class="Select" id="categoria" name="categoria">
             <%# função selectCategoria %>
           </select>
         </div>
@@ -84,29 +81,27 @@
         <label for="pais">Pais:</label>
         <div class="CampoInput">
           <label for="pais" class="Simbolo">expand_more</label>
-          <select class="Select" id="pais" name="pais" onchange="PesquisarLivro()">
+          <select class="Select" id="pais" name="pais">
             <%# função selectPais %>
           </select>
         </div>
       </div>
 
       <div class="Campo">
-        <input type="number" hidden id="valor_final">
-        <input type="number" hidden id="valor_inicial">
         <div class="ValorRange">
-              <a>Periodo:</a> <a class="RangeValor" id="range_valor">
-                  <input type="number" id="input_menor_valor" class="InputMenorValor"></input>
-                  <span class="RangeSepararValor">-</span>
-                  <input type="number" id="input_maior_valor" class="InputMaiorValor"></input>
-              </a>
-          </div>
-          <div class="CampoInput CampoR">
-              <div class="Progresso" id="progresso"></div>
-              <span class="LinhaDupla">                    
-                  <input type="range" min="0" max="2024" value="0" id="range_menor" name="range_menor" class="Periodo">
-                  <input type="range" min="0" max="2024" value="2024" id="range_maior" name="range_maior" class="Periodo">
-              </span>
-          </div>
+          <a>Periodo:</a> <a class="RangeValor" id="range_valor">
+            <input type="number" id="input_menor_valor" class="InputMenorValor"></input>
+            <span class="RangeSepararValor">-</span>
+            <input type="number" id="input_maior_valor" class="InputMaiorValor"></input>
+          </a>
+        </div>
+        <div class="CampoInput CampoR">
+          <div class="Progresso" id="progresso"></div>
+          <span class="LinhaDupla">                    
+            <input type="range" min="0" max="2024" value="0" id="range_menor" name="range_menor" class="Periodo">
+            <input type="range" min="0" max="2024" value="2024" id="range_maior" name="range_maior" class="Periodo">
+          </span>
+        </div>
       </div>
     </div>
 
