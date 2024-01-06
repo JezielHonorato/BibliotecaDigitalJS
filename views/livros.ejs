@@ -13,7 +13,8 @@
   
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
   <script src='javascripts/main.js' defer></script>
-  <script>
+  <script>~
+
     $(document).ready(function () {
       function selectCategoria() {      
         $.ajax({
@@ -107,22 +108,8 @@
 
 
     <div class="Lista">
-      <div class="Livro" >
-        <div class="Indice"> <h1><span class="Simbolo"> download</span></h1></div>
-        <div class="Titulo"> <h1>Titulo</h1> <span onclick="Ordenar('ordenar_titulo')" id="ordenar_titulo" class="Simbolo Menor2">swap_vert</span></div>
-        <div class="Autor"> <h1>Autor</h1> <span onclick="Ordenar('ordenar_autor')" id="ordenar_autor" class="Simbolo Menor2">swap_vert</span></div>
-        <div class="Data"> <h1>Data</h1> <span onclick="Ordenar('ordenar_data')" id="ordenar_data" class="Simbolo Menor2">swap_vert</span></div>
-        <div class="Editar"> <span class='Simbolo'>edit</span></div>
-      </div>
-      <% for (item of resultado) {%>
-        <div class='Livro'>
-          <a class='Indice' href='files/<%= item.titulo %>.pdf'.pdf' download='<%= item.titulo %>'><span class='Simbolo'>download</span></a>
-          <div class='Titulo' onclick="window.open('files/<%= item.titulo %>.pdf')"><a> <%= item.titulo %></a></div>
-          <div class='Autor' onclick="window.open('files/<%= item.titulo %>.pdf')"><a> <%= item.autor %></a></div>
-          <div class='Data' onclick="window.open('files/<%= item.titulo %>.pdf')"><a> <%= item.publicadodata %></a></div>
-          <div class='Editar'><a href='editar/id="item.idlivro"'> <span class='Simbolo'>edit</span></a></div>
-        </div>
-      <%}%> 
+
+      <div id="resultado"></div> <%# Local para aparecerem o resultado das consultas %>
 
     </div>
   </div>
