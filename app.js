@@ -10,7 +10,7 @@ var usersRouter = require('./routes/users');
 const { Session } = require('inspector');
 const bodyParser = require('body-parser')
 
-let app = express();
+const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

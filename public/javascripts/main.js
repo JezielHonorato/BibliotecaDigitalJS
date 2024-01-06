@@ -56,24 +56,28 @@ async function pesquisarLivro() {
   const rangeMenor = document.getElementById('range_menor').value
   
   try {
-    const response = await fetch(`http://localhost:3000/livros/:titulo=${titulo}&categoria=${categoria}&pais=${pais}&range_menor=${rangeMenor}&range_maior=${rangeMaior}`, { method: "GET" });
-    const livros = await response.json();
-    if (livros.length <= 0) return;
+    const response = await fetch(`http://localhost:3000/livros/titulo=${titulo}&categoria=${categoria}&pais=${pais}&range_menor=${rangeMenor}&range_maior=${rangeMaior}`, { method: "GET" });
+    const livro = await response.json();
+    
+    if (livro.length <= 0) return;
 
-    const livro = livros.map(row => ({
+    const livros = livro.map((row) => {
+      return {
         id: row.id,
         titulo: row.titulo,
         autor: row.autor,
         data: row.data,
-    }))[0];
+      };
+    });
 
-    document.querySelector("#resultado").innerHTML = Renderizar(livro);
+
+    document.querySelector("#resultado").innerHTML = Renderizar(livros);
   } catch (error) {
     console.error("Erro:", error);
   }
 }
 
-function Renderizar(livro) {
+function Renderizar(livros) {
   let conteudo = `
       <div class="Livro">
         <div class="Indice"> <h1><span class="Simbolo">download</span></h1></div>
@@ -84,22 +88,17 @@ function Renderizar(livro) {
       </div>  
       `;
   
-  livro.forEach((livros) => {
+  livros.forEach((livro) => {
     conteudo += `
-      <% for (item of resultado) {%>
-        <div class="Lista" id='resultado' onload="PesquisarLivro()"></div>
-
         <div class='Livro'>
-          <a class='Indice' href='files/<%= item.titulo %>.pdf'.pdf' download='<%= item.titulo %>'><span class='Simbolo'>download</span></a>
-          <div class='Titulo' onclick="window.open('files/<%= item.titulo %>.pdf')"><a> <%= item.titulo %></a></div>
-          <div class='Autor' onclick="window.open('files/<%= item.titulo %>.pdf')"><a> <%= item.autor %></a></div>
-          <div class='Data' onclick="window.open('files/<%= item.titulo %>.pdf')"><a> <%= item.publicadodata %></a></div>
-          <div class='Editar'><a href='editar/id="item.idlivro"'> <span class='Simbolo'>edit</span></a></div>
+          <a class='Indice' href='files/${livro.titulo}.pdf'.pdf' download='${livro.titulo}'><span class='Simbolo'>download</span></a>
+          <div class='Titulo' onclick="window.open('files/${livro.titulo}.pdf')"><a> ${livro.titulo}</a></div>
+          <div class='Autor' onclick="window.open('files/${livro.titulo}.pdf')"><a> ${livro.autor}</a></div>
+          <div class='Data' onclick="window.open('files/${livro.titulo}.pdf')"><a> ${livro.data}</a></div>
+          <div class='Editar'><a href='editar/id="${livro.id}"'> <span class='Simbolo'>edit</span></a></div>
         </div>
-      <%}%>
       `
   });
   
   return conteudo;
 }
-document.addEventListener('DOMContentLoaded', pesquisarLivro());

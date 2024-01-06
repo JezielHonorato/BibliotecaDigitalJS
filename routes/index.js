@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 let db = require('../utils/db');
 
-function executarComandoSQL(sql, params, res, erroMsg) {
-  db.query(sql, params, (err, result) => {
+function executarComandoSQL(sql, params, res) {
+  db.query(sql, params, (err, listagem) => {
     if (err) {
-      res.status(500).json({ erro: erroMsg, detalhes: err });
+      res.status(500).json({ erro: "Erro no sql", detalhes: err });
     } else {
-      res.status(200).json(result);
+      res.status(200).json({resultado: listagem});
     }
   });
 }
@@ -16,14 +16,8 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/livros', async function(req, res) {
-  let sql = 'SELECT idlivro, titulo, data, autor FROM tblivro AS l INNER JOIN tbautor AS a ON a.idautor = l.idautor ORDER BY titulo';
-  db.query(sql, [], function(erro, listagem){
-    if (erro){
-      res.send(erro);
-    }
-    res.render('livros', {resultado: listagem});
-  });
+router.get('/livros', function(req, res) {
+  res.render('livros');
 });
 
 router.get('/livros/:titulo&categoria&pais&range_menor&range_maior&', async function(req, res) {
