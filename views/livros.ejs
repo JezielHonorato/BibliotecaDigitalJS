@@ -13,7 +13,7 @@
   
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
   <script src='javascripts/main.js' defer></script>
-  <script>~
+  <script>
 
     $(document).ready(function () {
       function selectCategoria() {      
@@ -25,7 +25,7 @@
             $("#categoria").html("<option selected></option>");
             $.each(res.resultado, function (key, value){
               $("#categoria").append(               
-                "<option value=" + value.idcategoria + ">" + value.categoria + "</option>"
+                "<option value=" + value.idCategoria + ">" + value.categoria + "</option>"
               );
             });
           },

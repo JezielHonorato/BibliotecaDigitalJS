@@ -56,7 +56,7 @@ async function pesquisarLivro() {
   const rangeMenor = document.getElementById('range_menor').value
   
   try {
-    const response = await fetch(`http://localhost:3000/livros/titulo=${titulo}&categoria=${categoria}&pais=${pais}&range_menor=${rangeMenor}&range_maior=${rangeMaior}`, { method: "GET" });
+    const response = await fetch(`http://localhost:3000/livros?titulo=${titulo}&categoria=${categoria}&pais=${pais}&range_menor=${rangeMenor}&range_maior=${rangeMaior}`, { method: "GET" });
     const livro = await response.json();
     
     if (livro.length <= 0) return;

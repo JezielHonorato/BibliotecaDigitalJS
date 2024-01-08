@@ -20,7 +20,7 @@ router.get('/livros', function(req, res) {
   res.render('livros');
 });
 
-router.get('/livros/:titulo&categoria&pais&range_menor&range_maior&', async function(req, res) {
+router.get('/livros?titulo&categoria&pais&range_menor&range_maior', async function(req, res) {
   const { titulo, categoria, pais, range_menor, range_maior } = req.params;
 
   const sqlWhere = [];
