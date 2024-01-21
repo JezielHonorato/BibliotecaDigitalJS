@@ -28,24 +28,18 @@ document.getElementById('input_maior_valor').addEventListener('click', mudarPeri
 
 function Ordenar(id) { //Função para os simbolos de Ordenar
   const elementos = ['ordenar_titulo', 'ordenar_autor', 'ordenar_data'];
-  const elementoClicado = document.getElementById(id);
-
-  elementos.forEach((elementoID) => {
-    const elemento = document.getElementById(elementoID);
-    elemento.innerHTML = (elemento === elementoClicado)
-      ? proximoTexto(elemento.innerHTML)
-      : 'swap_vert';
-  });
-
-  Ordem = elementos.indexOf(id) + 1;
+  const elementoClicado = document.getElementById(`ordenar_${id}`);
+  const ordenar = document.getElementById('ordem')
+  let ordem = '';
+  for (item of elementos){
+      const elemento = document.getElementById(item);
+      elemento.innerHTML = (elemento === elementoClicado) ? proximoTexto(elemento.innerHTML) : 'swap_vert';
+      ordem = elemento.innerHTML == 'expand_more' ? `ORDER BY ${id} ASC` : elemento.innerHTML == 'expand_less' ? `ORDER BY ${id} DESC` : ordem;
+  }
+  ordenar.value = ordem;
   pesquisarLivro();
-
 }function proximoTexto(textoAtual) {
-  return textoAtual === 'swap_vert'
-    ? 'expand_more'
-    : textoAtual === 'expand_more'
-    ? 'expand_less'
-    : 'expand_more';
+  return textoAtual === 'swap_vert' ? 'expand_more' : textoAtual === 'expand_more' ? 'expand_less' : 'expand_more';
 }
 
 async function pesquisarLivro() {
@@ -81,9 +75,9 @@ function Renderizar(livros) {
   let conteudo = `
       <div class="Livro">
         <div class="Indice"> <h1><span class="Simbolo">download</span></h1></div>
-        <div class="Titulo"> <h1>Titulo</h1> <span onclick="Ordenar('ordenar_titulo')" id="ordenar_titulo" class="Simbolo Menor2">swap_vert</span></div>
-        <div class="Autor">  <h1>Autor</h1>  <span onclick="Ordenar('ordenar_autor')"  id="ordenar_autor"  class="Simbolo Menor2">swap_vert</span></div>
-        <div class="Data">   <h1>Data</h1>   <span onclick="Ordenar('ordenar_data')"   id="ordenar_data"   class="Simbolo Menor2">swap_vert</span></div>
+        <div class="Titulo"> <h1>Titulo</h1> <span onclick="Ordenar('titulo')" id="ordenar_titulo" class="Simbolo Menor2">swap_vert</span></div>
+        <div class="Autor">  <h1>Autor</h1>  <span onclick="Ordenar('autor')"  id="ordenar_autor"  class="Simbolo Menor2">swap_vert</span></div>
+        <div class="Data">   <h1>Data</h1>   <span onclick="Ordenar('data')"   id="ordenar_data"   class="Simbolo Menor2">swap_vert</span></div>
         <div class="Editar"> <span class='Simbolo'>edit</span></div>
       </div>  
       `;

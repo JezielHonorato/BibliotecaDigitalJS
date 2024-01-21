@@ -26,7 +26,7 @@ router.get('/livros?titulo&categoria&pais&range_menor&range_maior', async functi
   const sqlWhere = [];
 
   if (titulo) {
-    sqlWhere.push(`(l.titulo LIKE %${titulo}% OR a.autor LIKE '%${titulo}%')`);
+    sqlWhere.push(`(l.titulo LIKE '%${titulo}%' OR a.autor LIKE '%${titulo}%')`);
   }
   if (categoria) {
     sqlWhere.push(`l.idCategoria = ${categoria}`);
